@@ -8,46 +8,52 @@ class TableEntry{
 
     public:
     std::string key{};
-    V value;
+    V value{};
 
-    TableEntry(std::string key, V value){
+    TableEntry(std::string key, V value);
 
-    }
+    TableEntry(std::string key);
 
-    TableEntry(std::string key){
+    TableEntry();
 
-    }
+    template <typename F>
+    friend bool operator == (const TableEntry<F> &te1, const TableEntry<F> &te2);
 
-    TableEntry(){
+    template <typename F>
+    friend bool operator != (const TableEntry<F> &te1, const TableEntry<F> &te2);
 
-    }
-
-    friend bool operator == (const TableEntry<V> &te1, const TableEntry<V> &te2){
-
-    }
-
-    friend bool operator != (const TableEntry<V> &te1, const TableEntry<V> &te2){
-
-    }
-
-    friend std::ostream& operator << (std::ostream &out, const TableEntry<V> &te){
-
-    }
-
-    void insert(std::string key, V value) override{
-
-    }
-
-    V search (std::string key) override{
-
-    }
-
-    V remove (std::string key) override{
-
-    }
-    
-    int entries() override{
-
-    }
+    template <typename F>
+    friend std::ostream& operator << (std::ostream &out, const TableEntry<F> &te);
 
 };
+
+template <typename V>
+TableEntry <V>::TableEntry(std::string key, V value): key(key), value(value){}
+
+template <typename V>
+TableEntry <V>::TableEntry(std::string key): key(key){}
+
+template <typename V>
+TableEntry <V>::TableEntry():key(""){}
+
+template <typename F>
+bool operator == (const TableEntry<F> &te1, const TableEntry<F> &te2){
+    if(te1.key==te2.key)
+        return true;
+    else
+        return false;
+}
+
+template <typename F>
+bool operator != (const TableEntry<F> &te1, const TableEntry<F> &te2){
+    if(te1.key!=te2.key)
+        return true;
+    else
+        return false;
+}
+
+template <typename F>
+std::ostream& operator << (std::ostream &out, const TableEntry<F> &te){
+    out<<"Key: "<<te.key<<" || Value: "<<te.value<<std::endl;
+    return out;
+}
