@@ -25,6 +25,12 @@ class TableEntry{
     template <typename F>
     friend std::ostream& operator << (std::ostream &out, const TableEntry<F> &te);
 
+    template <typename F>
+    friend bool operator < (const TableEntry<F> &te1, const TableEntry<F> &te2);
+
+    template <typename F>
+    friend bool operator > (const TableEntry<F> &te1, const TableEntry<F> &te2);
+
 };
 
 template <typename V>
@@ -56,4 +62,14 @@ template <typename F>
 std::ostream& operator << (std::ostream &out, const TableEntry<F> &te){
     out<<"Key: "<<te.key<<" || Value: "<<te.value<<std::endl;
     return out;
+}
+
+template <typename F>
+bool operator < (const TableEntry<F> &te1, const TableEntry<F> &te2){
+    return te1.key<te2.key;
+}
+
+template <typename F> 
+bool operator > (const TableEntry<F> &te1, const TableEntry<F> &te2){
+    return te1.key>te2.key;
 }
